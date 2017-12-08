@@ -1,4 +1,7 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../paper-item/paper-item.html">
+<link rel="import" href="../paper-listbox/paper-listbox.html">
 
 <!--
 `dropdown-select`
@@ -20,19 +23,69 @@ A LRN element
         display: block;
       }
     </style>
-    <h2>[[title]]</h2>
+    HELLO
+    <!--paper-dropdown-menu id="menu" label$="[[label]]" on-selected-item-changed="_setSelectedValue">
+      <paper-listbox id="listbox" slot="dropdown-content" selected$="{{selectedIndex}}">
+        <slot></slot>
+      </paper-listbox>
+    </paper-dropdown-menu-->
   </template>
 
   <script>
     Polymer({
 
       is: 'dropdown-select',
-
+      /*listeners: {
+        'menubutton.tap': '_menubuttonTap',
+      },*/
       properties: {
-        title: {
+        /** 
+         * The label of the select menu
+         */
+        label: {
           type: String,
-          value: 'dropdown-select',
+          value: 'Select an option.'
         },
+        /** 
+         * The default value
+         */
+        value: {
+          type: String,
+          value: null
+        },
+        /** 
+         * The index of the selected item
+         */
+        selectedIndex: {
+          type: Number,
+          reflectToAttribute: true,
+          notify: true,
+          computed: '_getSelectedIndex()',
+        }
+      },
+      /**
+       * Get the value of the selected item.
+       */
+      _setSelectedValue: function(e) {
+        if (e.detail.value !== null){
+          let val = e.detail.value.getAttribute('value');
+          this.setAttribute('value',val);
+          this.fire('change',{'value': val});
+        }
+      },
+      /**
+       * Get the index of the default value.
+       */
+      _getSelectedIndex: function() {
+        console.log('test')
+        this.__items = this.getElementsByTagName('paper-item');
+        for (var i=0; i<this.__items.length;i++){
+          console.log(this.value,this.__items[i],this.__items[i].getAttribute('value'));
+          if (this.value==this.__items[i].getAttribute('value')) {
+            return i;
+          }
+        }
+        return null;
       },
 
     });
