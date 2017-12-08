@@ -24,7 +24,7 @@ A LRN element
       }
     </style>
     <paper-dropdown-menu id="menu" label$="[[label]]" on-selected-item-changed="_setSelectedValue">
-      <paper-listbox id="listbox" slot="dropdown-content" selected$="{{selectedIndex}}">
+      <paper-listbox id="listbox" slot="dropdown-content" selected$="[[selectedIndex]]">
         <slot></slot>
       </paper-listbox>
     </paper-dropdown-menu>
@@ -59,7 +59,7 @@ A LRN element
           type: Number,
           reflectToAttribute: true,
           notify: true,
-          computed: '_getSelectedIndex()',
+          computed: '_getSelectedIndex(value)',
         }
       },
       /**
@@ -75,12 +75,12 @@ A LRN element
       /**
        * Get the index of the default value.
        */
-      _getSelectedIndex: function() {
-        console.log('test')
+      _getSelectedIndex: function(value) {
+        console.log('test');
         this.__items = this.getElementsByTagName('paper-item');
         for (var i=0; i<this.__items.length;i++){
-          console.log(this.value,this.__items[i],this.__items[i].getAttribute('value'));
-          if (this.value==this.__items[i].getAttribute('value')) {
+          console.log(value,this.__items[i],this.__items[i].getAttribute('value'));
+          if (value==this.__items[i].getAttribute('value')) {
             return i;
           }
         }

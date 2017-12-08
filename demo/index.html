@@ -16,10 +16,11 @@
     </style>
     <script>
       window.onload = function(){
-        var example = document.getElementById('example');
-        example.addEventListener('change', function (e) {
-          alert('You picked '+e.detail.value+'.');
-        });
+        if(document.getElementById('example') !== null && e.detail !== null) {
+          document.getElementById('example').addEventListener('change', function (e) {
+            alert('You picked '+e.detail.value+'.');
+          });
+        }
       }
     </script>
   </head>
@@ -34,14 +35,16 @@
             <paper-item value="dog">Dog</paper-item>
             <paper-item value="fish">Fish</paper-item>
           </dropdown-select>
+          <!-- Example script for getting the value. --
           <script>
             window.onload = function(){
-              var example = document.getElementById('example');
-              example.addEventListener('change', function (e) {
-                alert('You picked '+e.detail.value+'.');
-              });
+              if(document.getElementById('example') !== null && e.detail !== null) {
+                document.getElementById('example').addEventListener('change', function (e) {
+                  alert('You picked '+e.detail.value+'.');
+                });
+              }
             }
-          </script>
+          </script> -->
         </template>
       </demo-snippet>
     </div>
