@@ -2,6 +2,7 @@
 <link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../paper-item/paper-item.html">
 <link rel="import" href="../paper-listbox/paper-listbox.html">
+<link rel="import" href="../web-animations-js/web-animations-next-lite.min.html">
 
 <!--
 `dropdown-select`
@@ -31,6 +32,9 @@ An easy to use, works as expected dropdown menu. Add slotted items like follows:
       }
       paper-listbox paper-listbox {
         @apply --dropdown-listbox;
+      }
+      :host paper-dropdown-menu {
+        /*--paper-dropdown-menu-input*/
       }
     </style>
     <paper-dropdown-menu 
