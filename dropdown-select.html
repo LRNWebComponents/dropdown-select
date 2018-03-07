@@ -28,7 +28,10 @@ An easy to use, works as expected dropdown menu. Add slotted items like follows:
         vertical-align: text-top;
         line-height: 2em;
         @apply --dropdown-select-items;
-      };
+      }
+      paper-listbox paper-listbox {
+        @apply --dropdown-listbox;
+      }
     </style>
     <paper-dropdown-menu 
       always-float-label$="[[alwaysFloatLabel]]"
