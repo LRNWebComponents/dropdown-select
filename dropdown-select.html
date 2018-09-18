@@ -62,7 +62,7 @@ An easy to use, works as expected dropdown menu. Add slotted items like follows:
       restore-focus-on-close$="[[restoreFocusOnClose]]" 
       vertical-align$="[[verticalAlign]]" 
       vertical-offset$="[[verticalOffset]]">
-      <paper-listbox id="listbox" slot="dropdown-content" selected$="[[selectedItemIndex]]">
+      <paper-listbox id="listbox" slot="dropdown-content">
         <slot id="content"></slot>
       </paper-listbox>
     </paper-dropdown-menu>
@@ -217,6 +217,17 @@ An easy to use, works as expected dropdown menu. Add slotted items like follows:
         },
       },
       /**
+        * Get the value of the selected item.
+        */
+      _getSelectedValue: function(e) {
+        if (e.detail.value !== null){
+          this.value = e.detail.value.getAttribute('value');
+          this._setSelectedValues();
+          this.fire('change', {'value': this.value}); //support for old version
+          this.fire('dropdown-select-changed', this);
+        }
+      },
+      /**
         * Sets the opened property to true
         */
       _onOpen: function(e) {
@@ -231,22 +242,10 @@ An easy to use, works as expected dropdown menu. Add slotted items like follows:
       /**
         * Get the value of the selected item.
         */
-      _getSelectedValue: function(e) {
+      _setSelectedValues: function() {
         this.selectedItem = this.$.menu.selectedItem;
         this.selectedItemLabel = this.$.menu.selectedItemLabel;
-        this.selectedItemIndex = null;
-        if (e.detail.value !== null){
-          let val = e.detail.value.getAttribute('value');
-          this.value = val;
-          let children = this.$.listbox.querySelectorAll('paper-item');
-          if(children !== undefined && children !== null){
-            for (let i=0;i<children.length;i++) {
-              if(this.selectedItem === children[i]) this.selectedItemIndex = i;
-            }
-          }   
-          this.fire('change', {'value': val}); //support for old version
-          this.fire('dropdown-select-changed', this);
-        }
+        this.selectedItemIndex = this.$.listbox.selected;
       },
       /**
         * Set the index of the selected item.
@@ -255,7 +254,10 @@ An easy to use, works as expected dropdown menu. Add slotted items like follows:
         let children = this.$.listbox.querySelectorAll('paper-item');
         if(children !== undefined && children !== null){
           for (let i=0;i<children.length;i++) {
-            if(this.value === children[i].getAttribute('value')) this.$.listbox.selected = i;
+            if(this.value === children[i].getAttribute('value')) {
+              this.$.listbox.selected = i;
+              this._setSelectedValues();
+            }
           }
         }  
       },
