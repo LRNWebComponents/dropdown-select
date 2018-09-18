@@ -249,9 +249,15 @@ An easy to use, works as expected dropdown menu. Add slotted items like follows:
         }
       },
       /**
-        * Get the index of the default value.
+        * Set the index of the selected item.
         */
-      ready: function() { 
+      attached: function() {
+        let children = this.$.listbox.querySelectorAll('paper-item');
+        if(children !== undefined && children !== null){
+          for (let i=0;i<children.length;i++) {
+            if(this.value === children[i].getAttribute('value')) this.$.listbox.selected = i;
+          }
+        }  
       },
     });
   </script>
