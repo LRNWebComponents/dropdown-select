@@ -1,5 +1,4 @@
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../web-animations-js/web-animations-next-lite.min.html">
 <link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../paper-item/paper-item.html">
 <link rel="import" href="../paper-listbox/paper-listbox.html"> 
@@ -62,7 +61,7 @@ An easy to use, works as expected dropdown menu. Add slotted items like follows:
       restore-focus-on-close$="[[restoreFocusOnClose]]" 
       vertical-align$="[[verticalAlign]]" 
       vertical-offset$="[[verticalOffset]]">
-      <paper-listbox id="listbox" slot="dropdown-content">
+      <paper-listbox id="listbox" slot="dropdown-content" class="dropdown-content">
         <slot id="content"></slot>
       </paper-listbox>
     </paper-dropdown-menu>
